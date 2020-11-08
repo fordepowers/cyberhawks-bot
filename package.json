@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Yeah.... we don't have any tests yet :[\" && exit 1"
   },
   "keywords": [],
