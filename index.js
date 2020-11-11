@@ -40,22 +40,45 @@ function executeCommand(command, msg, args) {
   }
 }
 
-bot.on('guildMemberAdd', member => {
-  console.log(member)
-  member.guild.channels.get('266435313356767232').send({
+bot.on('message', msg => {
+  if (msg.type === 'GUILD_MEMBER_JOIN') {
+    executeCommand('!greet', msg, msg.author)
+  }
+})
+
+bot.on('guildCreate', guild => {
+  guild.channels.cache.get('627663150509981727').send({
     embed: {
-      color: 3447003,
-      title: "**Cyberhawks** Welcome Bot!",
-      url: "https://cbc-cyberhawks.herokuapp.com",
-      description: "Welcome *" + member + "* to the **Cyberhawks** Discord server!",
-      fields: [{
-        name: "Information",
-        value: "Some info on the server"
-      }],
+      color: '#2e57a1',
+      title: "**Cyberhawks** Management Bot",
+      url: "https://github.com/fordepowers/cyberhawks-bot",
+      description: `Hello, I am a Discord Bot created by \`Asynchronous#7049\` to help manage the **Cyberhawks** Discord server.
+I have several features unique to the Cyberhawks.`,
+      thumbnail: {
+        url: 'https://i.imgur.com/vQFxThk.jpeg',
+      },
+      fields: [
+        {
+          name: 'Commands',
+          value: `Type \`!help\` for a list of commands.`
+        },
+        {
+          name: 'Cyberhawks Website',
+          value: 'https://cbc-cyberhawks.herokuapp.com'
+        },
+        {
+          name: 'CBC Website',
+          value: 'https://columbiabasin.edu'
+        },
+        {
+          name: 'Source Code',
+          value: 'https://github.com/fordepowers/cyberhawks-bot'
+        },
+      ],
       timestamp: new Date(),
       footer: {
-        icon_url: bot.user.avatarURL,
-        text: "© Cyberhawks 2020"
+        icon: bot.user.defaultAvatarURL,
+        text: "Cyberhawks Bot Version 0.1"
       },
     }
   })
