@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 require('dotenv').config()
-const bot = new Discord.Client()
+const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
 
@@ -8,9 +8,6 @@ const botCommands = require('./commands');
 Object.keys(botCommands).map(key => {
   bot.commands.set(botCommands[key].name, botCommands[key]);
 });
-
-// Login using the Discord API
-bot.login(process.env.BOT_TOKEN);
 
 // Upon logging in, set the status
 bot.on('ready', () => {
@@ -33,14 +30,14 @@ bot.on('guildCreate', guild => {
 // Upon a message being sent, evaluate it for a command
 bot.on('message', msg => {
   if (msg.author.bot) return; // Don't evaluate bot messages
-
+  
   if (msg.type === 'GUILD_MEMBER_JOIN') { // Greeting
     executeCommand('!greet', msg, msg.author)
   }
-
+  
   const args = msg.content.split(/ +/);
   const command = args.shift().toLowerCase();
-
+  
   if (!bot.commands.has(command)) return;
 
   executeCommand(command, msg, args);
@@ -56,3 +53,6 @@ function executeCommand(command, msg, args) {
     msg.reply('there was an error trying to execute that command!');
   }
 }
+
+// Login using the Discord API
+bot.login(process.env.BOT_TOKEN);
