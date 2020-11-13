@@ -6,9 +6,9 @@ module.exports = {
       `>>> **Commands**
 \`!help\` - Displays this help screen.
 \`!log [1] [-2] [-3]\` - Formats a logbook message. Every bulletpoint is separated by a \`-\`.
-\`!ping\` - Replies 'pong'. Used for testing.
-\`!notes\` - Shows the last meeting notes.
 \`!greet @user\` - Sends the greeting message to a specific user.
+\`!introduction\` - Have Cyberhawks Bot introduce itself.
+\`!ping\` - Replies 'pong'. Used for testing.
 `;
     msg.channel.send(message);
   },

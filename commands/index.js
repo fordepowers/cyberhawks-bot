@@ -3,4 +3,5 @@ module.exports = {
   Greet: require('./greet'),
   Help: require('./help'),
   Log: require('./log'),
+  Introduction: require('./introduction'),
 };
