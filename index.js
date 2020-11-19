@@ -28,12 +28,12 @@ bot.on('guildCreate', guild => {
 });
 
 // Upon a message being sent, evaluate it for a command
-bot.on('message', msg => {
-  
+bot.on('message', msg => {  
   if (msg.type === 'GUILD_MEMBER_JOIN') { // Greeting
-    console.log(msg);
     executeCommand('!greet', msg, msg.author)
   }
+  
+  if (msg.author.bot) return; // Don't evaluate bot messages
   
   const args = msg.content.split(/ +/);
   const command = args.shift().toLowerCase();
