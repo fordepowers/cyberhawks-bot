@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 require('dotenv').config()
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
+bot.queue = new Map();
 const botCommands = require('./commands');
 
 // Turn the exported commands into a command library for use
@@ -21,6 +22,14 @@ bot.on('ready', () => {
   });
 })
 
+bot.on('reconnecting', () => {
+  console.log('Reconnecting!');
+});
+
+bot.on('disconnect', () => {
+  console.log('Disconnect!');
+});
+
 // Upon joining a new server, send an introduction message
 bot.on('guildCreate', guild => {
   let channel = guild.channels.cache.filter(chx => chx.type === "text").find(x => x.position === 0);
@@ -28,16 +37,16 @@ bot.on('guildCreate', guild => {
 });
 
 // Upon a message being sent, evaluate it for a command
-bot.on('message', msg => {  
+bot.on('message', msg => {
   if (msg.type === 'GUILD_MEMBER_JOIN') { // Greeting
     executeCommand('!greet', msg, msg.author)
   }
-  
+
   if (msg.author.bot) return; // Don't evaluate bot messages
-  
+
   const args = msg.content.split(/ +/);
   const command = args.shift().toLowerCase();
-  
+
   if (!bot.commands.has(command)) return;
 
   executeCommand(command, msg, args);
